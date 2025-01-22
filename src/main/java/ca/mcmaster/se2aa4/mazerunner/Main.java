@@ -2,7 +2,7 @@ package ca.mcmaster.se2aa4.mazerunner;
 
 import org.apache.commons.cli.*;
 import java.io.BufferedReader;
-import java.io.File;
+//import java.io.File;
 import java.io.FileReader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,6 +18,7 @@ public class Main {
         options.addOption(Option.builder("i")
             .longOpt("input")
             .hasArg()
+            .desc("Path to the maze file")
             .build());
 
         CommandLineParser parser = new DefaultParser();
@@ -30,16 +31,18 @@ public class Main {
 
             logger.info("**** Reading the maze from file " + inputFilePath);
             BufferedReader reader = new BufferedReader(new FileReader(inputFilePath));
-            StringBuilder line = new StringBuilder();
+            String line;
+            
             while ((line = reader.readLine()) != null) {
+                StringBuilder output = new StringBuilder();
                 for (int idx = 0; idx < line.length(); idx++) {
                     if (line.charAt(idx) == '#') {
-                        line.append("WALL ");
+                        output.append("WALL ");
                     } else if (line.charAt(idx) == ' ') {
-                        line.append("PASS ");
+                        output.append("PASS ");
                     }
                 }
-                logger.trace(line.toString());
+                logger.trace(output.toString());
             }
             reader.close();
         } catch(Exception e) {

@@ -47,7 +47,7 @@ public class Main { //main class used to run/manage the game.
             else {
                 logger.info("Computing Path...");
                 solveMaze(maze, player, path);
-                logger.info("Path: " + path.getCanonicalPath());
+                logger.info("Path: " + path.getCanonicalPath()); //outputs final path.
             }
         } 
         catch(Exception e) {

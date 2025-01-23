@@ -58,30 +58,25 @@ public class Main { //main class used to run/manage the game.
     }
 
     private static void solveMaze(Maze maze, Player player, Path path) {
-        //process user inputs here
-        //take user input and move the player on screen
-        Scanner inp = new Scanner(System.in);
-        String move;
-        while (true){
-            logger.info("Enter Move (q to quit): ");
-            move = inp.nextLine();
-            if (move.equalsIgnoreCase("F")){
+        //computes the path for a simple maze
+        
+        boolean atEnd = false;
+
+        while (!atEnd){
+            char nextPoint = maze.getCell(player.getRow(), player.getCol()+1);
+            if (nextPoint==' '){
                 player.moveForward();
-            }
-            else if (move.equalsIgnoreCase("R")){
-                player.turnRight();
-            }
-            else if (move.equalsIgnoreCase("L")){
-                player.turnLeft();
-            }
-            else if (move.equalsIgnoreCase("q")){
-                break;
+                path.addMove("F");
             }
             else{
-                logger.info("invalid input");
+                logger.info("Player hit a wall!");
+            }
+
+            if (player.getRow() == maze.getExitPoint()[0] && player.getCol() == maze.getExitPoint()[1]){
+                atEnd = true;
+                logger.info("Player has reached the end.");
             }
         }
-        inp.close();
     }
     
     private static boolean verifyPath(Maze maze, Player player, String pathSequence) { //check if the given path is valid
@@ -115,3 +110,36 @@ public class Main { //main class used to run/manage the game.
     }
 
 }
+
+
+
+
+
+/*
+private static void solveMaze(Maze maze, Player player, Path path) {
+    //computes the path for a simple maze
+    
+    Scanner inp = new Scanner(System.in);
+    String move;
+    while (true){
+        logger.info("Enter Move (q to quit): ");
+        move = inp.nextLine();
+        if (move.equalsIgnoreCase("F")){
+            player.moveForward();
+        }
+        else if (move.equalsIgnoreCase("R")){
+            player.turnRight();
+        }
+        else if (move.equalsIgnoreCase("L")){
+            player.turnLeft();
+        }
+        else if (move.equalsIgnoreCase("q")){
+            break;
+        }
+        else{
+            logger.info("invalid input");
+        }
+    }
+    inp.close();
+}
+*/

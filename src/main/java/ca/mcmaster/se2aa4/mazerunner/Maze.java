@@ -12,7 +12,7 @@ public class Maze {
 
     public Maze(String filePath) throws Exception {
         List<String> lines = new ArrayList<>();
-        BufferedReader reader = new BufferedReader(new FileReader(filePath));
+        BufferedReader reader = new BufferedReader(new FileReader(filePath)); //read file using Buffer reader. reads a file every
         String line;
         while ((line = reader.readLine()) != null) {
             lines.add(line);
@@ -42,7 +42,8 @@ public class Maze {
                 return new int[]{row, col};
             }
         }
-        throw new IllegalArgumentException("No " + type + " point found!");
+        return new int[]{-1,-1};
+        //throw new IllegalArgumentException("No " + type + " point found!");
     }
 
     public int[] getEntryPoint() {

@@ -18,8 +18,8 @@ public class Path {
 
         StringBuilder canonical = new StringBuilder();
         
-        for (int i = 1; i <= moves.size(); i++) {
-            if (i < moves.size() && moves.get(i).equals(moves.get(i - 1))) {
+        for (int i = 1; i < moves.size(); i++) {
+            if (moves.get(i).equals(moves.get(i - 1))) {
                 canonical.append(moves.get(i));
             } 
             else {

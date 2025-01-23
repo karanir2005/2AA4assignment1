@@ -13,7 +13,7 @@ public class Main { //main class used to run/manage the game.
     private static Logger logger = LogManager.getLogger();
 
     public static void main(String[] args) {
-        logger.info("** Starting Maze Runner");
+        logger.info("Starting Maze Runner");
 
         Options options = new Options();
         options.addOption(Option.builder("i")
@@ -32,10 +32,10 @@ public class Main { //main class used to run/manage the game.
             CommandLineParser parser = new DefaultParser();
             CommandLine cmd = parser.parse(options, args);
 
-            String inputFilePath = cmd.getOptionValue("i");
+            String inputFilePath = cmd.getOptionValue("i");//saves file path value.
             String pathSequence = cmd.getOptionValue("p");
 
-            Maze maze = new Maze(inputFilePath);
+            Maze maze = new Maze(inputFilePath); //parses file to a 2D array in constructor.
             Player player = new Player(maze.getEntryPoint()[0], maze.getEntryPoint()[1]);
             Path path = new Path();
 
@@ -43,24 +43,21 @@ public class Main { //main class used to run/manage the game.
                 logger.info("Verifying path.");
                 boolean isValid = verifyPath(maze, player, pathSequence);
                 logger.info("Path validity: " + (isValid ? "VALID" : "INVALID"));
-            } else {
-                logger.info("Exploring maze and generating path...");
-                exploreMaze(maze, player, path);
-                logger.info("Canonical Path: " + path.getCanonicalPath());
-                logger.info("Factorized Path: " + path.getFactorizedPath());
+            } 
+            else {
+                logger.info("Computing Path...");
+                solveMaze(maze, player, path);
+                logger.info("Path: " + path.getCanonicalPath());
             }
         } 
         catch(Exception e) {
             logger.error("/!\\ An error has occured /!\\");
         }
-        logger.info("**** Computing path");
-        logger.warn("PATH NOT COMPUTED");
-        logger.info("** End of MazeRunner");
+
+        logger.info("End of MazeRunner");
     }
 
-
-
-    private static void exploreMaze(Maze maze, Player player, Path path) {
+    private static void solveMaze(Maze maze, Player player, Path path) {
         //process user inputs here
         //take user input and move the player on screen
         Scanner inp = new Scanner(System.in);

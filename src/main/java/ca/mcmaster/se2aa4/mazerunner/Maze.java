@@ -24,25 +24,25 @@ public class Maze {
             layout[i] = lines.get(i).toCharArray();
         }
 
-        entryPoint = findEntryOrExit("entry");
+        entryPoint = findEntryOrExit("entry"); //saves the entry and exit points in variable
         exitPoint = findEntryOrExit("exit");
     }
 
     private int[] findEntryOrExit(String type) {
         int col;
-        if (type.equals("entry")){
+        if (type.equals("entry")){ //searches through col 0 for entry point
             col = 0;
         }
         else{
-            col = layout[0].length - 1;
+            col = layout[0].length - 1; //searches through col len-1 for exit.
         }
 
         for (int row = 0; row < layout.length; row++) {
-            if (layout[row][col] == ' ') {
+            if (layout[row][col] == ' ') { //loops thorugh col and checks for space (entry point)
                 return new int[]{row, col};
             }
         }
-        return new int[]{-1,-1};
+        return new int[]{-1,-1}; //if no point is found, return -1,-1
         //throw new IllegalArgumentException("No " + type + " point found!");
     }
 

@@ -41,7 +41,7 @@ public class Main { //main class used to run/manage the game.
 
             if (pathSequence != null) {
                 logger.info("Verifying path.");
-                boolean isValid = verifyPath(maze, player, pathSequence);
+                boolean isValid = verifyPath(maze, player, pathSequence); //called only when -p is present.
                 logger.info("Path validity: " + (isValid ? "VALID" : "INVALID"));
             } 
             else {
@@ -84,7 +84,7 @@ public class Main { //main class used to run/manage the game.
         inp.close();
     }
     
-    private static boolean verifyPath(Maze maze, Player player, String pathSequence) {
+    private static boolean verifyPath(Maze maze, Player player, String pathSequence) { //check if the given path is valid
         String path = pathSequence.replace(" ", "");
 
         //uses REGEX to check if all characters in path are valid
@@ -92,7 +92,7 @@ public class Main { //main class used to run/manage the game.
             return false;
         }
         
-        for (char move : path.toCharArray()) {
+        for (char move : path.toCharArray()) { //conducts the sequence 
             if (move=='F'){
                 player.moveForward();
             }
@@ -103,11 +103,13 @@ public class Main { //main class used to run/manage the game.
                 player.turnLeft();
             }
             
+            // returns false right away if wall is encountered.
             if (maze.isWall(player.getRow(), player.getCol())) {
                 return false;
-            }
+            } 
         }
 
+        //checks if the player's final position is the same as maze endpoint.
         boolean atEndPoint = player.getRow() == maze.getExitPoint()[0] && player.getCol() == maze.getExitPoint()[1];
         return atEndPoint;
     }

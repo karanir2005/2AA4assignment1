@@ -8,7 +8,7 @@ import java.util.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class Main {
+public class Main { //main class used to run/manage the game.
 
     private static Logger logger = LogManager.getLogger();
 

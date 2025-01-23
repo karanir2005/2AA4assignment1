@@ -33,16 +33,16 @@ public class Main { //main class used to run/manage the game.
             CommandLine cmd = parser.parse(options, args);
 
             String inputFilePath = cmd.getOptionValue("i");//saves file path value.
-            String pathSequence = cmd.getOptionValue("p");
+            String pathSequence = cmd.getOptionValue("p"); //saves path in a string variable when -p is used.
 
             Maze maze = new Maze(inputFilePath); //parses file to a 2D array in constructor.
             Player player = new Player(maze.getEntryPoint()[0], maze.getEntryPoint()[1]);
             Path path = new Path();
 
-            if (pathSequence != null) {
+            if (pathSequence != null) { //if -p is used.
                 logger.info("Verifying path.");
                 boolean isValid = verifyPath(maze, player, pathSequence); //called only when -p is present.
-                logger.info("Path validity: " + (isValid ? "VALID" : "INVALID"));
+                logger.info("Path validity: " + (isValid ? "VALID" : "INVALID")); //logs path validity.
             } 
             else {
                 logger.info("Computing Path...");

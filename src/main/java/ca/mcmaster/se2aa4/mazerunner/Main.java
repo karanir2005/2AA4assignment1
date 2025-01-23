@@ -42,7 +42,7 @@ public class Main { //main class used to run/manage the game.
             if (pathSequence != null) { //if -p is used.
                 logger.info("Verifying path.");
                 boolean isValid = verifyPath(maze, player, pathSequence); //called only when -p is present.
-                logger.info("Path validity: " + (isValid ? "VALID" : "INVALID")); //logs path validity.
+                logger.info("Path validity: " + (isValid ? "VALID" : "INVALID")); //logs path validity to logger.
             } 
             else {
                 logger.info("Computing Path...");

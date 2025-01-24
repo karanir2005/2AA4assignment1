@@ -18,14 +18,15 @@ public class Path {
 
         StringBuilder canonical = new StringBuilder();
         
+        if (!moves.isEmpty()) {
+            canonical.append(moves.get(0)); // Add the first move to the canonical path
+        }
+        
         for (int i = 1; i < moves.size(); i++) {
-            if (moves.get(i).equals(moves.get(i - 1))) {
-                canonical.append(moves.get(i));
-            } 
-            else {
+            if (!moves.get(i).equals(moves.get(i - 1))) { // Only add a space when the move changes
                 canonical.append(" ");
-                canonical.append(moves.get(i));
             }
+            canonical.append(moves.get(i));
         }
 
         return canonical.toString().trim();

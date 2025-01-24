@@ -14,7 +14,7 @@ public class Main { //main class used to run/manage the game.
 
     public static void main(String[] args) {
         logger.info("Starting Maze Runner");
-
+        
         Options options = new Options();
         options.addOption(Option.builder("i")
             .longOpt("input")
@@ -34,7 +34,7 @@ public class Main { //main class used to run/manage the game.
 
             String inputFilePath = cmd.getOptionValue("i");//saves file path value.
             String pathSequence = cmd.getOptionValue("p"); //saves path in a string variable when -p is used.
-
+            
             Maze maze = new Maze(inputFilePath); //parses file to a 2D array in constructor.
             Player player = new Player(maze.getEntryPoint()[0], maze.getEntryPoint()[1]);
             Path path = new Path();
@@ -48,6 +48,7 @@ public class Main { //main class used to run/manage the game.
                 logger.info("Computing Path...");
                 solveMaze(maze, player, path);
                 logger.info("Path: " + path.getCanonicalPath()); //outputs final path.
+                logger.info("Path: " + path.getFactorizedPath());
             }
         } 
         catch(Exception e) {
@@ -66,15 +67,17 @@ public class Main { //main class used to run/manage the game.
             char nextPoint = maze.getCell(player.getRow(), player.getCol()+1);
             if (nextPoint==' '){
                 player.moveForward();
+                System.out.println("adding");
                 path.addMove("F");
+                System.out.println("added");
+
+                if (player.getRow() == maze.getExitPoint()[0] && player.getCol() == maze.getExitPoint()[1]){
+                    atEnd = true;
+                    logger.info("Player has reached the end.");
+                }
             }
             else{
                 logger.info("Player hit a wall!");
-            }
-
-            if (player.getRow() == maze.getExitPoint()[0] && player.getCol() == maze.getExitPoint()[1]){
-                atEnd = true;
-                logger.info("Player has reached the end.");
             }
         }
     }

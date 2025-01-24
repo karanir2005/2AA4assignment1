@@ -14,14 +14,23 @@ public class Maze {
         List<String> lines = new ArrayList<>();
         BufferedReader reader = new BufferedReader(new FileReader(filePath)); //read file using Buffer reader. reads a file every
         String line;
+
         while ((line = reader.readLine()) != null) {
-            lines.add(line);
+            lines.add(line.replace('\n', ' '));
         }
         reader.close();
+        int width = lines.get(0).length();
 
-        layout = new char[lines.size()][];
+        layout = new char[lines.size()][width];
         for (int i = 0; i < lines.size(); i++) {
-            layout[i] = lines.get(i).toCharArray();
+            char[] row = lines.get(i).toCharArray();
+            for (int j = 0; j < width; j++) {
+                if (j < row.length) {
+                    layout[i][j] = row[j];
+                } else {
+                    layout[i][j] = ' ';
+                }
+            }
         }
 
         entryPoint = findEntryOrExit("entry"); //saves the entry and exit points in variable

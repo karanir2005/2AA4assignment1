@@ -45,13 +45,13 @@ public class Path {
 
     public String getFactorizedPath(){
         StringBuilder factorized = new StringBuilder();
-        int count = 1;
+        int count = 1; //counts the number of continuous letters 
         
-        for (int i = 1; i <= moves.size(); i++) {
+        for (int i = 1; i <= moves.size(); i++) { 
             if (i < moves.size() && moves.get(i).equals(moves.get(i - 1))) {
                 count++;
             } else {
-                factorized.append(count > 1 ? count : "");
+                factorized.append(count > 1 ? count : ""); //format the output properly with numbers and spaces
                 factorized.append(moves.get(i - 1)).append(" ");
                 count = 1;
             }

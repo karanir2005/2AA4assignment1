@@ -11,6 +11,14 @@ public class Maze {
     private int[] exitPoint;
 
     public Maze(String filePath) throws Exception {
+        
+        readFile(filePath);
+
+        entryPoint = findEntryOrExit("entry"); //saves the entry and exit points in variable
+        exitPoint = findEntryOrExit("exit");
+    }
+
+    public void readFile(String filePath) throws Exception{
         List<String> lines = new ArrayList<>();
         BufferedReader reader = new BufferedReader(new FileReader(filePath)); //read file using Buffer reader. reads a file every
         String line;
@@ -32,9 +40,6 @@ public class Maze {
                 }
             }
         }
-
-        entryPoint = findEntryOrExit("entry"); //saves the entry and exit points in variable
-        exitPoint = findEntryOrExit("exit");
     }
 
     private int[] findEntryOrExit(String type) {

@@ -68,7 +68,6 @@ public class Maze {
             }
         }
         return new int[]{-1,-1}; //if no point is found, return -1,-1
-        //throw new IllegalArgumentException("No " + type + " point found!");
     }
 
     public int[] getEntryPoint() {

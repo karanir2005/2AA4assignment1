@@ -23,7 +23,7 @@ public class PathVerifier {
 
         //uses REGEX to check if all characters in path are valid
         if (!pathSequence.matches("[FRL0-9]*")) {
-            return false;
+            throw new IllegalArgumentException("Invalid path format: Only have 'F', 'R', 'L', 0-9, and spaces.");
         }
 
         //use regex to check for factorized form and convert to canonical

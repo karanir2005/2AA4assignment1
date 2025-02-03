@@ -28,6 +28,15 @@ public class Player {
         return direction;
     }
 
+    public void setDirection(String direction) {
+        this.direction = direction;
+    }
+
+    public void setPosition(int row, int col){
+        this.row = row;
+        this.col = col;
+    }
+
     public void moveForward() {
         if (direction.equalsIgnoreCase("up")){
             row--;

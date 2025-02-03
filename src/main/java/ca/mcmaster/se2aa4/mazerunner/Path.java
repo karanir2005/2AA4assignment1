@@ -60,5 +60,32 @@ public class Path {
         return factorized.toString().trim();
     }
 
-    
+    public String expandFactorized (String path) {
+        StringBuilder expandedPath = new StringBuilder();
+        
+        for (int i=0; i < path.length(); i++){
+            char currentChar = path.charAt(i);
+
+            if (Character.isDigit(currentChar)){
+                int numStart = i;
+                for (; i < path.length() && Character.isDigit(path.charAt(i)); i++);
+                
+                int repeatCount = Integer.parseInt(path.substring(numStart, i));
+
+                if (i < path.length()) {
+                    char move = path.charAt(i);
+
+                    for (int j = 0; j < repeatCount; j++) {
+                        expandedPath.append(move);
+                    }
+                }
+
+            }
+            else {
+                expandedPath.append(currentChar);
+            }
+        }
+        
+        return expandedPath.toString();
+    }
 }

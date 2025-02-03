@@ -40,18 +40,19 @@ public class Main { //main class used to run/manage the game.
             Player player = new Player(maze.getEntryPoint()[0], maze.getEntryPoint()[1]);
             Path path = new Path();
 
-            Game game = new Game(maze, player, path);
+            PathSolver solver = new PathSolver(maze, player, path);
+            PathVerifier verifier = new PathVerifier(maze, player, path, pathSequence);
 
             if (pathSequence != null) { //if -p is used.
                 logger.info("Verifying path.");
-                boolean isValid = game.verifyPath(maze, player, pathSequence, path); //called only when -p is present.
-                logger.info("Path validity: " + (isValid ? "VALID" : "INVALID")); //logs path validity to logger.
+                boolean isValid = verifier.verifyPath(); //called only when -p is present.
+                System.out.println("Path validity: " + (isValid ? "VALID" : "INVALID")); //logs path validity to logger.
             } 
             else {
                 logger.info("Computing Path...");
-                game.solveMaze(maze, player, path);
+                solver.solve();
                 //logger.info("Canonical Path: " + path.getCanonicalPath()); //outputs final path in canonical.
-                logger.info("Factorized Path: " + path.getFactorizedPath()); //outputs factorized path.
+                System.out.println("Factorized Path: " + path.getFactorizedPath()); //outputs factorized path.
             }
         } 
         catch(Exception e) {

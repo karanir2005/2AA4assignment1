@@ -81,5 +81,11 @@ public class Player {
             direction="up";
         }
     }
+
+    public void resetPosition(int row, int col, String direction) {
+        this.row = row;
+        this.col = col;
+        this.direction = direction;
+    }    
     
 }

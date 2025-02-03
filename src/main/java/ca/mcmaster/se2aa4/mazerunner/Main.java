@@ -57,7 +57,7 @@ public class Main { //main class used to run/manage the game.
         } 
         catch(Exception e) {
             logger.error("/!\\ An error has occured /!\\");
-            logger.error(e.getMessage());
+            System.out.println(e.getMessage());
         }
 
         logger.info("End of MazeRunner");

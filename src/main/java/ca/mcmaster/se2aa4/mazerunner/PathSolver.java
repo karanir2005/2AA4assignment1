@@ -65,6 +65,5 @@ public class PathSolver {
                 logger.info("Player has reached the end.");
             }
         }
-    }
-    
+    }    
 }

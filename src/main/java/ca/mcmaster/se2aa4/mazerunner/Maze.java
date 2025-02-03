@@ -1,7 +1,9 @@
 package ca.mcmaster.se2aa4.mazerunner;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,33 +13,42 @@ public class Maze {
     private int[] exitPoint;
 
     public Maze(String filePath) throws Exception {
-        
-        readFile(filePath);
-
-        entryPoint = findEntryOrExit("entry"); //saves the entry and exit points in variable
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            readFile(reader);
+        } catch (IOException e) {
+            throw new FileNotFoundException("Error: Maze file not found. Please enter valid path.");
+        }
+    
+        entryPoint = findEntryOrExit("entry");
         exitPoint = findEntryOrExit("exit");
+    
+        if (entryPoint[0] == -1 || exitPoint[0] == -1) {
+            throw new IllegalArgumentException("Error: Maze must have a valid entry and exit point.");
+        }
     }
 
-    public void readFile(String filePath) throws Exception{
+    public void readFile(BufferedReader reader) throws Exception {
         List<String> lines = new ArrayList<>();
-        BufferedReader reader = new BufferedReader(new FileReader(filePath)); //read file using Buffer reader. reads a file every
         String line;
-
+    
         while ((line = reader.readLine()) != null) {
-            lines.add(line.replace('\n', ' '));
+            if (!line.matches("[# ]*")) { // Ensures only '#' or ' ' characters exist
+                throw new IllegalArgumentException("Error: Maze contains invalid characters. Only '#' and ' ' are allowed.");
+            }
+            lines.add(line);
         }
-        reader.close();
+    
+        if (lines.isEmpty()) {
+            throw new IllegalArgumentException("Error: Maze file is empty.");
+        }
+    
         int width = lines.get(0).length();
-
         layout = new char[lines.size()][width];
+    
         for (int i = 0; i < lines.size(); i++) {
             char[] row = lines.get(i).toCharArray();
             for (int j = 0; j < width; j++) {
-                if (j < row.length) {
-                    layout[i][j] = row[j];
-                } else {
-                    layout[i][j] = ' ';
-                }
+                layout[i][j] = (j < row.length) ? row[j] : ' ';
             }
         }
     }

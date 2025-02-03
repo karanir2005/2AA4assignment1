@@ -42,7 +42,7 @@ public class Main { //main class used to run/manage the game.
 
             if (pathSequence != null) { //if -p is used.
                 logger.info("Verifying path.");
-                boolean isValid = verifyPath(maze, player, pathSequence); //called only when -p is present.
+                boolean isValid = verifyPath(maze, player, pathSequence, path); //called only when -p is present.
                 logger.info("Path validity: " + (isValid ? "VALID" : "INVALID")); //logs path validity to logger.
             } 
             else {
@@ -110,15 +110,47 @@ public class Main { //main class used to run/manage the game.
         }
     }
     
-    private static boolean verifyPath(Maze maze, Player player, String pathSequence) { //check if the given path is valid
-        String path = pathSequence.replace(" ", "");
+    private static boolean verifyPath(Maze maze, Player player, String pathSequence, Path path) { //check if the given path is valid
+        pathSequence = pathSequence.replace(" ", "");
 
         //uses REGEX to check if all characters in path are valid
-        if (!path.matches("[FRL]*")) {
+        if (!pathSequence.matches("[FRL0-9]*")) {
             return false;
         }
+
+        //use regex to check for factorized form and convert to canonical
+        if (pathSequence.matches(".*[0-9].*")){
+            pathSequence = path.expandFactorized(pathSequence);
+        }
         
-        for (char move : path.toCharArray()) { //conducts the sequence 
+        for (char move : pathSequence.toCharArray()) { //conducts the sequence 
+            if (move=='F'){
+                player.moveForward();
+            }
+            else if (move=='R'){
+                player.turnRight();
+            }
+            else if (move=='L'){
+                player.turnLeft();
+            }
+            
+            // returns false right away if wall is encountered.
+            if (maze.isWall(player.getRow(), player.getCol())) {
+                return checkOppositePath(maze, player, pathSequence); //check the reverse path incase the user had entered the reverse path. returns true if reverse path is valid, false if not.
+            } 
+        }
+
+        //checks if the player's final position is the same as maze endpoint.
+        boolean atEndPoint = player.getRow() == maze.getExitPoint()[0] && player.getCol() == maze.getExitPoint()[1];
+        return atEndPoint;
+    }
+
+    private static boolean checkOppositePath(Maze maze, Player player, String pathSequence) { //check if the given path is valid
+
+        player.setDirection("left");
+        player.setPosition(maze.getExitPoint()[0], maze.getExitPoint()[1]);
+        
+        for (char move : pathSequence.toCharArray()) { //conducts the sequence 
             if (move=='F'){
                 player.moveForward();
             }
@@ -136,41 +168,8 @@ public class Main { //main class used to run/manage the game.
         }
 
         //checks if the player's final position is the same as maze endpoint.
-        boolean atEndPoint = player.getRow() == maze.getExitPoint()[0] && player.getCol() == maze.getExitPoint()[1];
+        boolean atEndPoint = player.getRow() == maze.getEntryPoint()[0] && player.getCol() == maze.getEntryPoint()[1];
         return atEndPoint;
     }
 
 }
-
-
-
-
-
-/*
-private static void solveMaze(Maze maze, Player player, Path path) {
-    //computes the path for a simple maze
-    
-    Scanner inp = new Scanner(System.in);
-    String move;
-    while (true){
-        logger.info("Enter Move (q to quit): ");
-        move = inp.nextLine();
-        if (move.equalsIgnoreCase("F")){
-            player.moveForward();
-        }
-        else if (move.equalsIgnoreCase("R")){
-            player.turnRight();
-        }
-        else if (move.equalsIgnoreCase("L")){
-            player.turnLeft();
-        }
-        else if (move.equalsIgnoreCase("q")){
-            break;
-        }
-        else{
-            logger.info("invalid input");
-        }
-    }
-    inp.close();
-}
-*/

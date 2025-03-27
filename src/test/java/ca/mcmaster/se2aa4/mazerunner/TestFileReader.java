@@ -4,9 +4,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.io.FileNotFoundException;
+
 import org.junit.jupiter.api.Test;
 
-public class TestMazeFileReader {
+public class TestFileReader {
 
     @Test
     void testReadFileInvalidCharacter() {
@@ -14,6 +16,14 @@ public class TestMazeFileReader {
             new Maze("examples/invalid.maz.txt"); // Assume file has characters other than '#' and ' '
         });
         assertEquals("Error: Maze contains invalid characters. Only '#' and ' ' are allowed.", exception.getMessage());
+    }
+
+    @Test
+    void testReadFileInvalidPath() {
+        Exception exception = assertThrows(FileNotFoundException.class, () -> {
+            new Maze("filedne.txt"); // Assume file does not exist
+        });
+        assertEquals("Error: Maze file not found. Please enter valid path.", exception.getMessage());
     }
 
     @Test

@@ -29,7 +29,11 @@ public class TestMaze {
     }
 
     @Test
-    void testIsWall() {
+    void testMazeElements() {
+        assertEquals(7, maze.getHeight());
+        assertEquals(8, maze.getWidth());
+        assertEquals('#', maze.getCell(0, 0));
+        assertEquals(' ', maze.getCell(1, 0));
         assertTrue(maze.isWall(4, 3));
         assertFalse(maze.isWall(2, 1));
     }

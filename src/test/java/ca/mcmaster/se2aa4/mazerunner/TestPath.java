@@ -18,6 +18,8 @@ public class TestPath {
     void testAddMove() {
         path.addMove("F");
         assertEquals("F", path.getCanonicalPath());
+        path.addMove("R");
+        assertEquals("F R", path.getCanonicalPath());
     }
 
     @Test
@@ -42,5 +44,7 @@ public class TestPath {
     void testExpandFactorizedPath() {
         String expanded = path.expandFactorized("2F 2R F");
         assertEquals("FF RR F", expanded);
+        assertEquals("FF LL FFFF RR", path.expandFactorized("2F 2L 4F 2R"));
+        assertEquals("FF LL FFFF RR", path.expandFactorized("2 F 2 L 4 F 2 R"));
     }
 }

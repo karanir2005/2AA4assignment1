@@ -7,32 +7,33 @@ import org.junit.jupiter.api.Test;
 public class TestPlayer {
     private Player player;
     private Maze maze;
+    private int[] entryPoint;
 
     @BeforeEach
     void setUp() throws Exception {
         maze = new Maze("examples/direct.maz.txt");
-        int[] entryPoint = maze.getEntryPoint();
+        entryPoint = maze.getEntryPoint();
         player = new Player(entryPoint[0], entryPoint[1]);
     }
 
     @Test
     void testPlayerInitialization() {
-        int[] entryPoint = maze.getEntryPoint();
         assertEquals(entryPoint[0], player.getRow());
         assertEquals(entryPoint[1], player.getCol());
     }
 
     @Test
-    void testPlayerSetPosition() {
-        player.setPosition(2, 3);
-        assertEquals(2, player.getRow());
-        assertEquals(3, player.getCol());
-    }
+    void testPlayerMoveAndTurn() {
+        player.moveForward();
+        assertEquals(entryPoint[0], player.getRow());
+        assertEquals(entryPoint[1]+1, player.getCol());
 
-    @Test
-    void testPlayerSetDirection() {
-        player.setDirection("right");
-        assertEquals("right", player.getDirection());
+        player.turnLeft();
+        assertEquals("up", player.getDirection());
+
+        player.turnRight();
+        player.turnRight();
+        assertEquals("down", player.getDirection());
     }
 
     @Test
@@ -41,5 +42,12 @@ public class TestPlayer {
         assertEquals(2, player.getRow());
         assertEquals(3, player.getCol());
         assertEquals("left", player.getDirection());
+
+        player.setPosition(2, 3);
+        assertEquals(2, player.getRow());
+        assertEquals(3, player.getCol());
+
+        player.setDirection("right");
+        assertEquals("right", player.getDirection());
     }
 }

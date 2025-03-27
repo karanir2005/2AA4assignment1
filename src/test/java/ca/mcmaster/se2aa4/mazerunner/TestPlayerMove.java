@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class TestPlayerMove {
+public class TestPlayerMove {
 
     private Player player;
 
@@ -15,17 +15,21 @@ class TestPlayerMove {
     }
 
     @Test
-    void testMoveForward() {
+    void testPlayerMoveForward() {
         player.moveForward();
         assertEquals(0, player.getRow());
         assertEquals(1, player.getCol());
     }
 
     @Test
-    void testTurnAndMove() {
+    void testPlayerTurnLeft() {
         player.turnLeft();
-        player.moveForward();
-        assertEquals(-1, player.getRow());
-        assertEquals(0, player.getCol());
+        assertEquals("up", player.getDirection());
+    }
+
+    @Test
+    void testPlayerTurnRight() {
+        player.turnRight();
+        assertEquals("down", player.getDirection());
     }
 }

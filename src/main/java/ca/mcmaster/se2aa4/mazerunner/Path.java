@@ -61,7 +61,28 @@ public class Path {
     }
 
     public String expandFactorized (String path) {
+        StringBuilder pathBuilder = new StringBuilder();
         StringBuilder expandedPath = new StringBuilder();
+
+        path = path.replaceAll("\\s+", " ");//replace multiple spaces with a single space
+
+        //remove any spaces after numbers
+        for (int i=0; i < path.length(); i++){
+            char currentChar = path.charAt(i);
+            if (Character.isDigit(currentChar)){
+                pathBuilder.append(currentChar);
+                i++;
+                while (i < path.length() && path.charAt(i) == ' '){
+                    i++;
+                }
+                pathBuilder.append(path.charAt(i));
+            }
+            else {
+                pathBuilder.append(currentChar);
+            }
+        }
+
+        path = pathBuilder.toString();
         
         for (int i=0; i < path.length(); i++){
             char currentChar = path.charAt(i);

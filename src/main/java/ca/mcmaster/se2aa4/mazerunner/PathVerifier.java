@@ -19,6 +19,7 @@ public class PathVerifier {
     }
     
     public boolean verifyPath() { //check if the given path is valid
+        boolean atEndPoint = false;
         pathSequence = pathSequence.replace(" ", "");
 
         //uses REGEX to check if all characters in path are valid
@@ -44,12 +45,16 @@ public class PathVerifier {
             
             // returns false right away if wall is encountered.
             if (maze.isWall(player.getRow(), player.getCol())) {
-                return checkOppositePath(); //check the reverse path incase the user had entered the reverse path. returns true if reverse path is valid, false if not.
+                break; //breaks the loop if wall is encountered
             } 
         }
 
         //checks if the player's final position is the same as maze endpoint.
-        boolean atEndPoint = player.getRow() == maze.getExitPoint()[0] && player.getCol() == maze.getExitPoint()[1];
+        atEndPoint = player.getRow() == maze.getExitPoint()[0] && player.getCol() == maze.getExitPoint()[1];
+        if (!atEndPoint) {
+            atEndPoint = checkOppositePath();
+        }
+        
         return atEndPoint;
     }
 

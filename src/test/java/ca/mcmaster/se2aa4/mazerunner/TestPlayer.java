@@ -1,6 +1,8 @@
 package ca.mcmaster.se2aa4.mazerunner;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -14,6 +16,13 @@ public class TestPlayer {
         maze = new Maze("examples/direct.maz.txt");
         entryPoint = maze.getEntryPoint();
         player = new Player(entryPoint[0], entryPoint[1]);
+    }
+
+    @AfterEach
+    void tearDown() {
+        maze = null;
+        player = null;
+        entryPoint = null;
     }
 
     @Test

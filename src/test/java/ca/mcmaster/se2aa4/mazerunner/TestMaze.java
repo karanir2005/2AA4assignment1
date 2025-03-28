@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.AfterEach;
+
 public class TestMaze {
 
     private Maze maze;
@@ -12,6 +14,11 @@ public class TestMaze {
     @BeforeEach
     void setUp() throws Exception {
         maze = new Maze("examples/direct.maz.txt");
+    }
+
+    @AfterEach
+    void tearDown() {
+        maze = null;
     }
 
     @Test

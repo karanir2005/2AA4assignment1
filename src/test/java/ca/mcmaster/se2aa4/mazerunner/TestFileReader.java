@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.FileNotFoundException;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -16,6 +17,11 @@ public class TestFileReader {
     @BeforeEach
     void setUp() throws Exception {
         validMaze = new Maze("examples/direct.maz.txt");
+    }
+
+    @AfterEach
+    void tearDown() {
+        validMaze = null;
     }
 
     @Test

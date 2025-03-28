@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.AfterEach;
+
 public class TestPathSolver {
 
     private Maze maze;
@@ -19,6 +21,14 @@ public class TestPathSolver {
         player = new Player(entryPoint[0], entryPoint[1]);
         path = new Path();
         solver = new PathSolver(maze, player, path);
+    }
+
+    @AfterEach
+    void tearDown() {
+        maze = null;
+        player = null;
+        path = null;
+        solver = null;
     }
 
     @Test

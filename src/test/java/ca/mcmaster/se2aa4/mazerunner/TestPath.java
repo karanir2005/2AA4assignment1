@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.AfterEach;
+
 public class TestPath {
 
     private Path path;
@@ -12,6 +14,11 @@ public class TestPath {
     @BeforeEach
     void setUp() {
         path = new Path();
+    }
+
+    @AfterEach
+    void tearDown() {
+        path = null;
     }
 
     @Test

@@ -1,17 +1,18 @@
 package ca.mcmaster.se2aa4.mazerunner.CommandPattern;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Stack;
 
 public class CommandInvoker {
-    private List<Command> history = new ArrayList<>();
+    private final Stack<Command> history = new Stack<>();
 
     public void executeCommand(Command command) {
         command.execute();
-        history.add(command); // For undo or logging in future
+        history.push(command); //use stack for LIFO behavior - helps with undo
     }
 
-    public List<Command> getHistory() {
+    //public void undoCommand() {} //for future implementation
+
+    public Stack<Command> getHistory() {
         return history;
     }
 }

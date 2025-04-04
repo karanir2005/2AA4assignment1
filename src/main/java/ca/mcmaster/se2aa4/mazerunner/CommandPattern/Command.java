@@ -1,4 +1,4 @@
-package ca.mcmaster.se2aa4.mazerunner.commands;
+package ca.mcmaster.se2aa4.mazerunner.CommandPattern;
 
 import ca.mcmaster.se2aa4.mazerunner.Player;
 

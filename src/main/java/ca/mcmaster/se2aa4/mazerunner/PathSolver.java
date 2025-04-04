@@ -2,6 +2,7 @@ package ca.mcmaster.se2aa4.mazerunner;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import ca.mcmaster.se2aa4.mazerunner.CommandPattern.*;
 
 public class PathSolver {
 
@@ -19,8 +20,8 @@ public class PathSolver {
 
     public void solve() {
         //computes the path for a simple maze
-        
         boolean atEnd = false;
+        CommandInvoker invoker = new CommandInvoker();
 
         while (!atEnd){
             char rightWall;
@@ -45,21 +46,21 @@ public class PathSolver {
 
             if (rightWall=='#'){
                 if (frontCell == ' '){
-                    player.moveForward();
+                    invoker.executeCommand(new PlayerForwardCommand(player));
                     path.addMove("F");
                 }
                 else{
-                    player.turnLeft();
+                    invoker.executeCommand(new PlayerLeftCommand(player));
                     path.addMove("L");
                 }
             }
             else{
-                player.turnRight();
-                player.moveForward();
+                invoker.executeCommand(new PlayerRightCommand(player));
                 path.addMove("R");
+                invoker.executeCommand(new PlayerForwardCommand(player));
                 path.addMove("F");
             }
-            
+
             if (player.getRow() == maze.getExitPoint()[0] && player.getCol() == maze.getExitPoint()[1]){
                 atEnd = true;
                 logger.info("Player has reached the end.");
